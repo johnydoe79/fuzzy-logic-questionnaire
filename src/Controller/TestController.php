@@ -61,7 +61,7 @@ class TestController extends AbstractController
         // Перебираем все вопросы
         foreach ($questions as $question) {
             $questionId = $question->getId();
-            $selectedAnswers = isset($submittedAnswers[$questionId]) ? $submittedAnswers[$questionId] : [];
+            $selectedAnswers = $submittedAnswers[$questionId] ?? [];
 
             // Получаем правильные ответы
             $correctAnswers = $question->getAnswers()->filter(function ($answer) {
