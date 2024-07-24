@@ -1,0 +1,32 @@
+{# templates/results.html.twig #}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Test Results</title>
+</head>
+<body>
+<h1>Test Results</h1>
+
+<h2>Correct Answers</h2>
+<ul>
+    {% for result in correctResults %}
+        <li>{{ result.questionText }}</li>
+    {% else %}
+        <li>No correct answers.</li>
+    {% endfor %}
+</ul>
+
+<h2>Incorrect Answers</h2>
+<ul>
+    {% for result in incorrectResults %}
+        <li>{{ result.questionText }}</li>
+    {% else %}
+        <li>No incorrect answers.</li>
+    {% endfor %}
+</ul>
+
+<a href="{{ path('test_index') }}">Back to Test</a>
+</body>
+</html>

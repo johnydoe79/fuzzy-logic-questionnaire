@@ -13,33 +13,15 @@ class TestResult
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
-    private ?\DateTimeInterface $completedAt = null;
-
     #[ORM\Column(length: 255)]
     private ?string $userId;
 
-    #[ORM\ManyToOne(targetEntity: 'Question')]
-    #[ORM\JoinColumn(name: 'question_id', referencedColumnName: 'id')]
-    private ?Question $question;
-
-    #[ORM\Column]
-    private ?bool $isCorrect;
+    #[ORM\Column(type: Types::JSON)]
+    private array $results = []; // Хранит результаты в формате ['question_id' => is_correct]
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCompletedAt(): \DateTimeInterface
-    {
-        return $this->completedAt;
-    }
-
-    public function setCompletedAt(\DateTimeInterface $completedAt): self
-    {
-        $this->completedAt = $completedAt;
-        return $this;
     }
 
     public function getUserId(): string
@@ -53,25 +35,13 @@ class TestResult
         return $this;
     }
 
-    public function getQuestion(): ?Question
+    public function getResults(): array
     {
-        return $this->question;
+        return $this->results;
     }
 
-    public function setQuestion(?Question $question): self
+    public function addQuestionResult(int $questionId, bool $isCorrect): void
     {
-        $this->question = $question;
-        return $this;
-    }
-
-    public function isCorrect(): bool
-    {
-        return $this->isCorrect;
-    }
-
-    public function setCorrect(bool $isCorrect): self
-    {
-        $this->isCorrect = $isCorrect;
-        return $this;
+        $this->results[$questionId] = $isCorrect;
     }
 }

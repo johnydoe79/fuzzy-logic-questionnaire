@@ -1,0 +1,28 @@
+{# templates/index.html.twig #}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+<h1>Test Questions</h1>
+
+<form action="{{ path('test_submit') }}" method="post">
+    {% for question in questions %}
+        <fieldset>
+            <legend>{{ question.questionText }}</legend>
+            {% for answer in question.answers %}
+                <div>
+                    <input type="checkbox" id="answer_{{ answer.id }}" name="answers[{{ question.id }}][]" value="{{ answer.id }}">
+                    <label for="answer_{{ answer.id }}">{{ answer.answerText }}</label>
+                </div>
+            {% endfor %}
+        </fieldset>
+    {% endfor %}
+
+    <button type="submit">Submit Test</button>
+</form>
+</body>
+</html>
